@@ -200,6 +200,6 @@ function App({}) {
     value: l
   }), /* @__PURE__ */ React.createElement("span", null, " similar motions")), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("span", null, "show similar motions from 9914 motions, including 486 national tournaments and 306 international tournaments collected by "), /* @__PURE__ */ React.createElement("a", {
     href: "http://resources.tokyodebate.org/debate-motion/motion/"
-  }, "utds motion"), /* @__PURE__ */ React.createElement("p", null, "search engine built on sentence bert"), /* @__PURE__ */ React.createElement("p", null, " The University of Tokyo, Debating Society. UTDS"));
+  }, "utds motion"), /* @__PURE__ */ React.createElement("p", null, "search engine built on sentence bert"), /* @__PURE__ */ React.createElement("p", null, " The University of Tokyo, Debating Society. UTDS"), /* @__PURE__ */ React.createElement("br", null));
 }
 export default App;

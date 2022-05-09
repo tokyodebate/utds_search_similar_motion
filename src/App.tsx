@@ -235,6 +235,7 @@ function App({}: AppProps) {
 	<p>search engine built on sentence bert</p>
 
 	<p> The University of Tokyo, Debating Society. UTDS</p>
+	<br></br>
 	</div>
 	);
 }
