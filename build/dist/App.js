@@ -16,27 +16,20 @@ let tt = [
   `The purpose of a writer is to keep civilization from destroying itself.`,
   `It's the possibility of having a dream come true that makes life interesting.`,
   `The journey of a thousand miles begins with one step.`,
-  `Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do.`,
   `Great minds discuss ideas; average minds discuss events; small minds discuss people.`,
   `Those who dare to fail miserably can achieve greatly.`,
-  `The opposite of love is not hate; it’s indifference. -Elie Wiesel`,
+  `The opposite of love is not hate; it’s indifference.`,
   `Life is like a box of chocolates. You never know what you’re going to get.`,
   `If you judge people, you have no time to love them.`,
   `In the long run, the sharpest weapon of all is a kind and gentle spirit.`,
   `Sing like no one’s listening, love like you’ve never been hurt, dance like nobody’s watching, and live like it’s heaven on earth.`,
-  `Do what you can, with what you have, where you are.`,
   `Every great dream begins with a dreamer. Always remember, you have within you the strength, the patience, and the passion to reach for the stars to change the world.`,
   `Remember that the happiest people are not those getting more, but those giving more.`,
   `The only impossible journey is the one you never begin.`,
-  `I have no special talent. I am only passionately curious.`,
   `We have nothing to fear but fear itself.`,
-  `Those who cannot remember the past are condemned to repeat it.`,
-  `The only thing necessary for the triumph of evil is for good men to do nothing.`,
   `The power of imagination makes us infinite.`,
   `All that we see and seem is but a dream within a dream.`,
   `Anyone who is capable of getting themselves made President should on no account be allowed to do the job.`,
-  `Absolute power does not corrupt absolutely, absolute power attracts the corruptible.`,
-  `No matter how corrupt, greedy, and heartless our government, our corporations, our media, and our religious & charitable institutions may become, the music will still be wonderful.`,
   `Who controls the past controls the future. Who controls the present controls the past.`,
   `Every generation imagines itself to be more intelligent than the one that went before it, and wiser than the one that comes after it.`,
   `Every moment is a fresh beginning.`,
@@ -51,7 +44,22 @@ let tt = [
   `I am I and my circumstance; and, if I do not save it, I do not save myself.`,
   `Till this moment I never knew myself.`,
   `Everything is relative in this world, where change alone endures.`,
-  `Dad, how do soldiers killing each other solve the world's problems? - Bill Watterson`
+  `Dad, how do soldiers killing each other solve the world's problems? - Bill Watterson`,
+  `One small positive thought can change your whole day.`,
+  `The best is yet to be.`,
+  `Write it on your heart that every day is the best day in the year.`,
+  `I would rather walk with a friend in the dark, than alone in the light.`,
+  `I think therefore I am`,
+  `No man's knowledge here can go beyond his experience`,
+  `Leisure is the mother of philosophy`,
+  `You can discover more about a person in an hour of play than in a year of conversation`,
+  `“Man is condemned to be free” - Jean-Paul Sartre`,
+  `The only thing I know is that I know nothing`,
+  `To do as one would be done by, and to love one's neighbor as oneself, constitute the ideal perfection of utilitarian morality`,
+  `The opposite of love is not hate, it's indifference. The opposite of art is not ugliness, it's indifference. The opposite of faith is not heresy, it's indifference. And the opposite of life is not death, it's indifference.`,
+  `It does not matter how slowly you go as long as you do not stop.`,
+  `As you teach, you learn.`,
+  `It is strange that only extraordinary men make the discoveries, which later appear so easy and simple.`
 ];
 let t = tt[Math.floor(Math.random() * tt.length)];
 export function Slide(props) {
@@ -248,6 +256,6 @@ function App({}) {
     value: l
   }), /* @__PURE__ */ React.createElement("span", {
     className: "similar-motions"
-  }, " similar motions")), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null));
+  }, " closest in meaning among 9914 motions")), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null));
 }
 export default App;
