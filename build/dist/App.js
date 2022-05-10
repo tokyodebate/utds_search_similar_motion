@@ -5,7 +5,55 @@ import datastructure from "./data/datastructure.json.proxy.js";
 import datastructureSimple from "./data/datastructure_simple.json.proxy.js";
 import allVectors from "./data/round.json.proxy.js";
 import pic from "./utdslogo.png.proxy.js";
-let t = "Peace is a journey of a thousand miles and it must be taken one step at a time.";
+let tt = [
+  `Peace is a journey of a thousand miles and it must be taken one step at a time.`,
+  `All that glitters is not gold." -The Merchant of Venice`,
+  `So we beat on, boats against the current, borne back ceaselessly into the past.`,
+  `We write to taste life twice, in the moment and in retrospect.`,
+  `One day I will find the right words, and they will be simple.`,
+  `Tears are words that need to be written.`,
+  `To survive, you must tell stories.`,
+  `The purpose of a writer is to keep civilization from destroying itself.`,
+  `It's the possibility of having a dream come true that makes life interesting.`,
+  `The journey of a thousand miles begins with one step.`,
+  `Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do.`,
+  `Great minds discuss ideas; average minds discuss events; small minds discuss people.`,
+  `Those who dare to fail miserably can achieve greatly.`,
+  `The opposite of love is not hate; it’s indifference. -Elie Wiesel`,
+  `Life is like a box of chocolates. You never know what you’re going to get.`,
+  `If you judge people, you have no time to love them.`,
+  `In the long run, the sharpest weapon of all is a kind and gentle spirit.`,
+  `Sing like no one’s listening, love like you’ve never been hurt, dance like nobody’s watching, and live like it’s heaven on earth.`,
+  `Do what you can, with what you have, where you are.`,
+  `Every great dream begins with a dreamer. Always remember, you have within you the strength, the patience, and the passion to reach for the stars to change the world.`,
+  `Remember that the happiest people are not those getting more, but those giving more.`,
+  `The only impossible journey is the one you never begin.`,
+  `I have no special talent. I am only passionately curious.`,
+  `We have nothing to fear but fear itself.`,
+  `Those who cannot remember the past are condemned to repeat it.`,
+  `The only thing necessary for the triumph of evil is for good men to do nothing.`,
+  `The power of imagination makes us infinite.`,
+  `All that we see and seem is but a dream within a dream.`,
+  `Anyone who is capable of getting themselves made President should on no account be allowed to do the job.`,
+  `Absolute power does not corrupt absolutely, absolute power attracts the corruptible.`,
+  `No matter how corrupt, greedy, and heartless our government, our corporations, our media, and our religious & charitable institutions may become, the music will still be wonderful.`,
+  `Who controls the past controls the future. Who controls the present controls the past.`,
+  `Every generation imagines itself to be more intelligent than the one that went before it, and wiser than the one that comes after it.`,
+  `Every moment is a fresh beginning.`,
+  `What we think, we become.`,
+  `May your choices reflect your hopes, not your fears.`,
+  `A happy soul is the best shield for a cruel world.`,
+  `Change the game, don’t let the game change you.`,
+  `The meaning of life is to give life meaning.`,
+  `If you don’t know history, then you don’t know anything. You are a leaf that doesn’t know it is part of a tree`,
+  `No volume of history is insignificant, even the worst chapters. Especially the worst chapters.`,
+  `History can bring luck: this is what we can call optimism.`,
+  `I am I and my circumstance; and, if I do not save it, I do not save myself.`,
+  `Till this moment I never knew myself.`,
+  `Everything is relative in this world, where change alone endures.`,
+  `Dad, how do soldiers killing each other solve the world's problems? - Bill Watterson`
+];
+let t = tt[Math.floor(Math.random() * tt.length)];
 export function Slide(props) {
   if (props.flag)
     return /* @__PURE__ */ React.createElement("div", {
@@ -159,15 +207,15 @@ function App({}) {
   }
   return /* @__PURE__ */ React.createElement("div", {
     className: "App"
-  }, /* @__PURE__ */ React.createElement("div", {
-    className: "picParent"
+  }, /* @__PURE__ */ React.createElement("a", {
+    className: "picParent",
+    href: "http://resources.tokyodebate.org/debate-motion/tips/",
+    onclick: "document.location='http://resources.tokyodebate.org/debate-motion/tips/';return false;",
+    target: "_blank"
   }, /* @__PURE__ */ React.createElement("img", {
-    src: pic,
-    alt: "picture"
-  })), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("a", {
-    href: "http://resources.tokyodebate.org/debate-motion/tips/"
-  }, "utds"), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("div", {
-    className: "parent-input-button"
+    src: pic
+  })), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("div", {
+    className: "parent-input-button-"
   }, /* @__PURE__ */ React.createElement("input", {
     className: "searchInput",
     type: "text",
@@ -179,13 +227,13 @@ function App({}) {
     className: "search",
     onClick: (e) => {
       handleClick();
-      e.target.style.backgroundColor = "skyblue";
+      e.target.style.backgroundColor = "gray";
       setStarted(true);
     },
     disabled: isWaiting
   }, "search")), /* @__PURE__ */ React.createElement("div", {
     className: "searchName"
-  }, text), /* @__PURE__ */ React.createElement(SearchModal, {
+  }, `'${text}'`), /* @__PURE__ */ React.createElement(SearchModal, {
     className: "searchModal",
     isClicked,
     ranks,
@@ -198,8 +246,8 @@ function App({}) {
     placeholder: "10",
     onChange: (e) => setL(Number(e.target.value)),
     value: l
-  }), /* @__PURE__ */ React.createElement("span", null, " similar motions")), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("span", null, "show similar motions from 9914 motions, including 486 national tournaments and 306 international tournaments collected by "), /* @__PURE__ */ React.createElement("a", {
-    href: "http://resources.tokyodebate.org/debate-motion/motion/"
-  }, "utds motion"), /* @__PURE__ */ React.createElement("p", null, "search engine built on sentence bert"), /* @__PURE__ */ React.createElement("p", null, " The University of Tokyo, Debating Society. UTDS"), /* @__PURE__ */ React.createElement("br", null));
+  }), /* @__PURE__ */ React.createElement("span", {
+    className: "similar-motions"
+  }, " similar motions")), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null));
 }
 export default App;

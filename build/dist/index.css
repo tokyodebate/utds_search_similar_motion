@@ -13,7 +13,7 @@ code {
 }
 
 .searchInput {
-	text-align: center;
+	/* text-align: center;
 	border: 0.1rem solid gray;
 	border-radius: 0.3rem;
 	margin: 0.25rem;
@@ -21,8 +21,21 @@ code {
 	width: 50%;
 	height: 1.8rem;
 	/* background: whitesmoke; */
-	margin-left: 3rem;
+	/* margin-left: 3rem; */
 	/* border-color: #1cbbd0; */
+
+		-webkit-appearance: none;
+			display: inline-block;
+			margin-right: 0;
+			margin-bottom: 20px;
+			padding: 10px;
+			width: 65%;
+			height: 40px;
+			font-size: 100%;
+			box-sizing: border-box;
+			border-radius: 5px 0 0 5px;
+			border: 1px solid #ccc;
+			border-right: none;
 }
 
 .searchName{
@@ -36,11 +49,11 @@ code {
 	border-bottom: 1px solid;
 	/* border-bottom-color: skyblue; */
 	border-bottom-color: #1cbbd0;
-	/* border-bottom-color: #dc3545; */
+	border-bottom-color: #dc3545;
 }
 
 .search {
-		appearance: none;
+		/* appearance: none;
 		border: 0;
 		border-radius: 5px;
 		background: gray;
@@ -48,7 +61,19 @@ code {
 		margin-left: 1rem;
 		padding: 0.3rem 0.7rem;
 		font-size: 1.2rem;
-		text-align: right;
+		text-align: right; */
+
+			-webkit-appearance: none;
+				display: inline-block;
+				padding: 0 10px;
+				color: #fff;
+				width: 4.5rem;
+				height: 40px;
+				font-size: 100%;
+				vertical-align: top;
+				border: none;
+				border-radius: 0 5px 5px 0;
+				background: #1f76e2;
 }
 
 .sets {
@@ -189,6 +214,7 @@ img {
 }
 
 .length {
+	color: rgb(67, 67, 67);
 	text-align: center;
 	width: 1.4rem;
 	margin-top: 0.1rem;
@@ -285,3 +311,41 @@ img {
 }
 
 /*  write a css that put two div bottom right of parent div */
+
+.end {
+	color: gray;
+	margin-bottom: 2rem;
+}
+
+.similar-motions {
+	color: rgb(72, 72, 72);
+}
+
+
+input[type=search] {
+	-webkit-appearance: none;
+	display: inline-block;
+	margin-right: 0;
+	margin-bottom: 20px;
+	padding: 10px;
+	width: 200px;
+	height: 40px;
+	font-size: 100%;
+	box-sizing: border-box;
+	border-radius: 5px 0 0 5px;
+	border: 1px solid #ccc;
+	border-right: none;
+}
+input[type=submit] {
+	-webkit-appearance: none;
+	display: inline-block;
+	padding: 0 10px;
+	color: #fff;
+	width: 50px;
+	height: 40px;
+	font-size: 100%;
+	vertical-align: top;
+	border: none;
+	border-radius: 0 5px 5px 0;
+	background: #1f76e2;
+}
