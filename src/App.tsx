@@ -45,7 +45,6 @@ let tt = [
 `I am I and my circumstance; and, if I do not save it, I do not save myself.`,
 `Till this moment I never knew myself.`,
 `Everything is relative in this world, where change alone endures.`,
-`Dad, how do soldiers killing each other solve the world's problems? - Bill Watterson`,
 `One small positive thought can change your whole day.`,
 `The best is yet to be.`,
 `Write it on your heart that every day is the best day in the year.`,
@@ -54,7 +53,6 @@ let tt = [
 `No man's knowledge here can go beyond his experience`,
 `Leisure is the mother of philosophy`,
 `You can discover more about a person in an hour of play than in a year of conversation`,
-`“Man is condemned to be free” - Jean-Paul Sartre`,
 `The only thing I know is that I know nothing`,
 `To do as one would be done by, and to love one's neighbor as oneself, constitute the ideal perfection of utilitarian morality`,
 `The opposite of love is not hate, it's indifference. The opposite of art is not ugliness, it's indifference. The opposite of faith is not heresy, it's indifference. And the opposite of life is not death, it's indifference.`,
@@ -212,7 +210,7 @@ function App({}: AppProps) {
 	const [nationalIsClicked, setNationalIsClicked] = useState(true);
 	const [internationalIsClicked, setInternationalIsClicked] = useState(true);
 	const [isWaiting, setIsWaiting] = useState(false);
-	const [l, setL] = useState(10);
+	const [l, setL] = useState(15);
 	const [Length, setLLength] = useState(10);
 	const [isSearch, setIsSearch] = useState(false);
 
@@ -287,7 +285,7 @@ function App({}: AppProps) {
 
 		{/* <div className="seperator"></div> */}
 
-		<div className="searchName">{`'${text}'` }</div>
+		<div className="searchName">{`${text}` }</div>
 		<SearchModal className="searchModal" isClicked={isClicked} ranks={ranks} started = {started} />
 
 	<br></br>
