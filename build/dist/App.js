@@ -215,6 +215,8 @@ function App({}) {
   }
   return /* @__PURE__ */ React.createElement("div", {
     className: "App"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "divpic"
   }, /* @__PURE__ */ React.createElement("a", {
     className: "picParent",
     href: "http://resources.tokyodebate.org/debate-motion/tips/",
@@ -222,7 +224,7 @@ function App({}) {
     target: "_blank"
   }, /* @__PURE__ */ React.createElement("img", {
     src: pic
-  })), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("div", {
+  }))), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("div", {
     className: "parent-input-button-"
   }, /* @__PURE__ */ React.createElement("input", {
     className: "searchInput",

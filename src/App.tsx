@@ -63,8 +63,6 @@ let tt = [
 `It is strange that only extraordinary men make the discoveries, which later appear so easy and simple.`,
 
 
-
-
 ]
 
 
@@ -269,11 +267,13 @@ function App({}: AppProps) {
   return (
 	<div className="App">
 
-<a className="picParent" href="http://resources.tokyodebate.org/debate-motion/tips/"
-   onclick="document.location='http://resources.tokyodebate.org/debate-motion/tips/';return false;"
-   target="_blank">
+	<div className="divpic">
+	<a className="picParent" href="http://resources.tokyodebate.org/debate-motion/tips/"
+	onclick="document.location='http://resources.tokyodebate.org/debate-motion/tips/';return false;"
+	target="_blank">
     <img src={pic} />
-</a>
+	</a>
+	</div>
 
 		{/* <div className="picParent"><img src={pic} alt="picture"/></div> */}
 	<br></br>
