@@ -17,3 +17,6 @@ Best wishes!
 http://resources.tokyodebate.org/debate-motion/tips/
 
 https://utds-motion-search-gather.onrender.com/
+
+https://github.com/kokhayas/sbert_on_server
+を用いてjsonデータが用意されている
