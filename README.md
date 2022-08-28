@@ -20,3 +20,8 @@ https://utds-motion-search-gather.onrender.com/
 
 https://github.com/kokhayas/sbert_on_server
 を用いてjsonデータが用意されている
+
+
+https://huggingface.co/datasets/kokhayas/english-debate-motions-utds
+
+huggingface上でデータセットとして提供しています
