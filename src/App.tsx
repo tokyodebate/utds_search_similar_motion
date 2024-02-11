@@ -97,10 +97,9 @@ function App({}: AppProps) {
   function handleClick() {
     setSearchingText(text);
     setIsSearchLoading(true);
-    // 500ms後に検索を実行
     setTimeout(() => {
       text2embed(text).finally(() => setIsSearchLoading(false));
-    }, 300);
+    }, 200);
   }
   
   if (loading) {

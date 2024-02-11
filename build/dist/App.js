@@ -86,7 +86,7 @@ function App({}) {
     setIsSearchLoading(true);
     setTimeout(() => {
       text2embed(text).finally(() => setIsSearchLoading(false));
-    }, 300);
+    }, 200);
   }
   if (loading) {
     return /* @__PURE__ */ React.createElement("div", null, loading ? "initial loading..." : /* @__PURE__ */ React.createElement(React.Fragment, null));
