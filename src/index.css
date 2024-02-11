@@ -59,7 +59,7 @@ code {
 	white-space: pre-wrap;
 	text-align: left;
 	margin-bottom: 0.2rem;
-	padding: 1rem; 
+	padding: 0.8rem; 
 	border-radius: 0.4rem;
 	border: solid gray 0.5px; /* Corrected and adjusted border thickness */
 	line-height: 1.35rem;
@@ -126,8 +126,11 @@ ol {
 }
 
 .searchModal {
-	padding: 2rem;
-	margin: 2rem;
+	padding-top: 1rem;
+	padding-left: 2rem;
+	padding-right: 2rem;
+	padding-bottom: 2rem;
+	margin: 1rem;
 }
 
 .explain {
