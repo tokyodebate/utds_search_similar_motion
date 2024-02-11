@@ -62,10 +62,6 @@ export const quotes = [
   "It is our choices that show what we truly are, far more than our abilities.",
   "Two roads diverged in a wood, and I— I took the one less traveled by, And that has made all the difference.",
   "The best way to predict your future is to create it.",
-  "The greatest glory in living lies not in never falling, but in rising every time we fall.",
-  "Individuals achieve short-term goals, while groups can accomplish long-term objectives by restricting personal freedoms.",
   "Deposits are, in essence, bonds by another name.",
   "There are two types of freedom: the freedom found in Gesellschaft and the freedom found in Gemeinschaft.",
-  "Universalism, in its essence of encompassing all, inherently highlights the identities of those who champion it, for without its global application, it falls short of its own universal ideal.",
-  "People often exhibit dual facets of identity simultaneously: they may champion authoritarianism within their homeland's majority, while advocating for liberalism as minorities residing in other nations.",
 ];
