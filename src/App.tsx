@@ -1,9 +1,8 @@
 import cosSimilarity from "cos-similarity";
 import React, { useState } from "react";
 import "./App.css";
-import datastructure from "./data/datastructure.json";
-import datastructureSimple from "./data/datastructure_simple.json";
-import allVectors from "./data/round.json";
+import rounds from "./data/datastructure_simple.json";
+import vectors from "./data/round.json";
 import pic from "./utdslogo.png";
 import { quotes } from "./quote";
 
@@ -18,7 +17,7 @@ export function SearchModal(props: {isSearchLoading: boolean, indexes: number[],
     return (
       <div className="sets">
         {props.indexes.map((index) => {
-					const round = datastructureSimple.data.find((v) => v.id == index)
+					const round = rounds.data.find((v) => v.id == index)
 					if (!round) {
 						return (
 							<>`round of index: ${index} not found`</>
@@ -79,8 +78,8 @@ function App({}: AppProps) {
           let vec = await embeddings.array();
           let similarities = {};
           let similarity = -1;
-          for (let i = 0; i < allVectors.length; i++) {
-            let vecs = allVectors[i];
+          for (let i = 0; i < vectors.length; i++) {
+            let vecs = vectors[i];
             similarity = cosSimilarity(vec[0], vecs);
             similarities[i] = similarity;
           }
@@ -167,7 +166,7 @@ function App({}: AppProps) {
           value={paginationRoundLength}
         />
         <span className="similar-motions">
-          closest in meaning among 9914 motions
+          closest in meaning among {vectors.length} motions
         </span>
       </div>
       <br></br>
