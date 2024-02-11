@@ -8,12 +8,13 @@ import pic from "./utdslogo.png";
 import { quotes } from "./quote";
 
 
-export function Slide(props) {
-  if (props.flag) return <div className="slide">{props.flag}</div>;
-  else {
-    return <></>;
-  }
+export function Slide(props: {text: string}) {
+  if (!props.text) {
+		return <></>
+	}
+	return <div className="slide">{props.text}</div>;
 }
+
 export function NationalModal(props) {
   let json_dict = datastructure["national"][props.index];
   if (true) {
@@ -28,7 +29,7 @@ export function NationalModal(props) {
                   <div className="child1">
                     <div className="title2">{e.round}</div>
                     <div className="motion2">{e.motion}</div>
-                    <Slide flag={e.slide} />
+                    <Slide text={e.slide} />
                   </div>
                 </div>
               </div>
@@ -62,7 +63,7 @@ export function InternationalModal(props) {
                   <div className="child1">
                     <div className="title2">{e.round}</div>
                     <div className="motion2">{e.motion}</div>
-                    <Slide flag={e.slide} />
+                    <Slide text={e.slide} />
                   </div>
                 </div>
               </div>
@@ -102,7 +103,7 @@ export function SearchModal(props) {
                       {datastructureSimple.data.find((v) => v.id == e).motion}
                     </div>
                     <Slide
-                      flag={
+                      text={
                         datastructureSimple.data.find((v) => v.id == e).slide
                       }
                     />
