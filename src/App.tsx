@@ -14,85 +14,32 @@ export function Slide(props: { text: string }) {
   return <div className="slide">{props.text}</div>;
 }
 
-export function NationalModal(props: { index: number }) {
-  let json_dict = datastructure["national"][props.index];
-  return (
-    <div className="sets" key={props.index}>
-      <div className="titles">{json_dict.title}</div>
-      {Object.values(json_dict.rounds).map((round) => {
-        return (
-          <>
-            <div className="set">
-              <div className="parent">
-                <div className="child1">
-                  <div className="title2">{round.round}</div>
-                  <div className="motion2">{round.motion}</div>
-                  <Slide text={round.slide} />
-                </div>
-              </div>
-            </div>
-          </>
-        );
-      })}
-
-      <div className="index-close">
-        <div className="index">
-          {props.index}/{datastructure["national"].length}
-        </div>
-      </div>
-    </div>
-  );
-}
-export function InternationalModal(props: { index: number }) {
-  let json_dict = datastructure["international"][props.index];
-  return (
-    <div className="sets" key={props.index}>
-      <div className="titles">{json_dict.title}</div>
-      {Object.values(json_dict.rounds).map((round) => {
-        return (
-          <>
-            <div className="set">
-              <div className="parent">
-                <div className="child1">
-                  <div className="title2">{round.round}</div>
-                  <div className="motion2">{round.motion}</div>
-                  <Slide text={round.slide} />
-                </div>
-              </div>
-            </div>
-          </>
-        );
-      })}
-      <div className="index-close">
-        <div className="index">
-          {props.index}/{datastructure["international"].length}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function SearchModal(props: {isSearchLoading: boolean, ranks: number[], isClicked: boolean}) {
-  if (props.isSearchLoading) {
+export function SearchModal(props: {isSearchLoading: boolean, indexes: number[], isClicked: boolean}) {
     return (
       <div className="sets">
-        {props.ranks.map((e) => {
+        {props.indexes.map((index) => {
+					const round = datastructureSimple.data.find((v) => v.id == index)
+					if (!round) {
+						return (
+							<>`round of index: ${index} not found`</>
+						)
+					}
           return (
             <>
               <div className="set">
                 <div className="parent">
                   <div className="child1">
                     <div className="title">
-                      {datastructureSimple.data.find((v) => v.id == e).title +
+                      {round.title +
                         " / " +
-                        datastructureSimple.data.find((v) => v.id == e).round}
+                        round.round}
                     </div>
                     <div className="motion">
-                      {datastructureSimple.data.find((v) => v.id == e).motion}
+                      {round.motion}
                     </div>
                     <Slide
                       text={
-                        datastructureSimple.data.find((v) => v.id == e).slide
+                        round.slide
                       }
                     />
                   </div>
@@ -103,9 +50,6 @@ export function SearchModal(props: {isSearchLoading: boolean, ranks: number[], i
         })}
       </div>
     );
-  } else {
-    return <></>;
-  }
 }
 
 interface AppProps {}
@@ -113,16 +57,10 @@ function App({}: AppProps) {
   const initialText = quotes[Math.floor(Math.random() * quotes.length)];
 
   const [text, setText] = useState<string>(initialText);
-  const [ranks, setRanks] = useState<Array<number>>([]);
+  const [indexes, setIndexes] = useState<Array<number>>([]);
   const [isClicked, setIsClicked] = useState(false);
-  const [nationalIndex, setNationalIndex] = useState(0);
-  const [internationalIndex, setInternationalIndex] = useState(0);
-  const [nationalIsClicked, setNationalIsClicked] = useState(true);
-  const [internationalIsClicked, setInternationalIsClicked] = useState(true);
   const [isWaiting, setIsWaiting] = useState(false);
-  const [l, setL] = useState(15);
-  const [Length, setLLength] = useState(10);
-  const [isSearch, setIsSearch] = useState(false);
+  const [paginationRoundLength, setPaginationRoundLength] = useState(15);
 
   const [loading, setLoading] = useState(false);
   const [isSearchLoading, setIsSearchLoading] = useState(false);
@@ -155,10 +93,10 @@ function App({}: AppProps) {
           let result = [];
           keys.sort(compare);
           // ここのLengthを変える
-          for (let i = 0; i < l; i++) {
+          for (let i = 0; i < paginationRoundLength; i++) {
             result.push(keys[i]);
           }
-          setRanks(result);
+          setIndexes(result);
 
           setLoading(false);
         });
@@ -167,7 +105,6 @@ function App({}: AppProps) {
   }
 
   function handleClick() {
-    setLLength(l);
     setIsWaiting(true);
     setIsClicked(!isClicked);
     text2embed();
@@ -214,7 +151,7 @@ function App({}: AppProps) {
 			<div className="searchModal">
 				<SearchModal
 					isClicked={isClicked}
-					ranks={ranks}
+					indexes={indexes}
 					isSearchLoading={isSearchLoading}
 				/>
 			</div>
@@ -226,32 +163,17 @@ function App({}: AppProps) {
           className="length"
           type="text"
           placeholder="10"
-          onChange={(e) => setL(Number(e.target.value))}
-          value={l}
+          onChange={(e) => setPaginationRoundLength(Number(e.target.value))}
+          value={paginationRoundLength}
         />
         <span className="similar-motions">
-          {" "}
           closest in meaning among 9914 motions
         </span>
       </div>
-
       <br></br>
-      {/* <div>{l}/9914</div> */}
-      {/* <p>search engine, built on sentence bert</p> */}
+      <br></br>
       <br></br>
 
-      {/* <footer className="end"> */}
-      {/* <span>show similar motions from 9914 motions, including 486 national tournaments and 306 international tournaments collected by </span> */}
-      {/* <a href="http://resources.tokyodebate.org/debate-motion/motion/">utds motion</a> */}
-      {/* <p>search engine built on sentence bert</p> */}
-
-      {/* <p> The University of Tokyo, Debating Society. UTDS</p> */}
-      {/* </footer> */}
-
-      <br></br>
-
-      {/* <input type="search" name="q" value="" placeholder="キーワード" /><input type="submit" name="btn_search" value="検索" />
-       */}
     </div>
   );
 }

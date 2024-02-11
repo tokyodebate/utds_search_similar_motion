@@ -131,21 +131,6 @@ code {
 	border-bottom-color: #dc3545;
 }
 
-/* .seperator {
-	/* height: 1rem; */
-	/* font-size: 0.9rem; */
-
-	text-decoration: underline background-clip: padding-box;
-
-	border-top: 5px solid;
-	border-bottom: 5px solid;
-	border-top-color: skyblue;
-	color: white;
-	border-bottom-color: #dc3545;
-	margin-top: 0.5rem;
-	margin-bottom: 0.5rem;
-} */
-
 .seperator2 {
 	height: 1rem;
 	/* font-size: 0.9rem; */
