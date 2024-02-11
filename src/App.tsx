@@ -16,7 +16,6 @@ export function Slide(props: { text: string }) {
 export function SearchModal(props: {
   isSearchLoading: boolean;
   indexes: number[];
-  isClicked: boolean;
 }) {
   if (props.indexes.length === 0) {
     return <></>;
@@ -57,7 +56,7 @@ function App({}: AppProps) {
   const [text, setText] = useState<string>(initialText);
   const [indexes, setIndexes] = useState<Array<number>>([]);
   const [isClicked, setIsClicked] = useState(false);
-  const [isWaiting, setIsWaiting] = useState(false);
+  // const [isWaiting, setIsWaiting] = useState(false);
   const [paginationRoundLength, setPaginationRoundLength] = useState(15);
 
   const [loading, setLoading] = useState(false);
@@ -69,14 +68,8 @@ function App({}: AppProps) {
 
 
   function text2embed() {
-    if (!model) {
-      console.log("model not loaded")
-      return
-    }
-    console.time("loadModel");
-    model
+    return model
       .then((model) => {
-        console.time("process")
         const sentences = [text];
         model.embed(sentences).then(async (embeddings) => {
           setLoading(true);
@@ -84,22 +77,18 @@ function App({}: AppProps) {
           let vec = await embeddings.array();
           let similarities = {};
           let similarity = -1;
-          console.time("cosSimilarityCalculation"); // Start measuring cos similarity calculation
           for (let i = 0; i < vectors.length; i++) {
             let vecs = vectors[i];
             similarity = cosSimilarity(vec[0], vecs);
             similarities[i] = similarity;
           }
-          console.timeEnd("cosSimilarityCalculation"); // End measuring cos similarity calculation
           let arr = similarities;
           var keys = [];
           for (let key in arr) keys.push(key);
           function compare(a, b) {
             return arr[b] - arr[a];
           }
-          console.time("sorting"); // Start measuring sorting
           keys.sort(compare);
-          console.timeEnd("sorting"); // End measuring sorting
           // Adjust length as needed
           let result = [];
           for (let i = 0; i < paginationRoundLength; i++) {
@@ -108,18 +97,12 @@ function App({}: AppProps) {
           setIndexes(result);
           setLoading(false);
         });
-        console.timeEnd("process")
       })
-      .finally(() => {
-        console.timeEnd("loadModel"); // This captures the entire load model process time
-      });
   }
 
   function handleClick() {
-    setIsWaiting(true);
-    setIsClicked(!isClicked);
-    text2embed();
-    setIsWaiting(false);
+    setIsSearchLoading(true);
+    text2embed().finally(() => setIsSearchLoading(false));
   }
 
   return (
@@ -143,16 +126,20 @@ function App({}: AppProps) {
           onChange={(e) => {
             setText(e.target.value);
           }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleClick();
+            }
+          }}
           value={text}
         />
         <button
           className="search"
+          style={{ backgroundColor: isSearchLoading ? "gray" : undefined }}
           onClick={(e) => {
             handleClick();
-            e.target.style.backgroundColor = "gray";
-            setIsSearchLoading(true);
           }}
-          disabled={isWaiting}
+          disabled={isSearchLoading}
         >
           search
         </button>
@@ -161,7 +148,6 @@ function App({}: AppProps) {
       <div className="searchName">{`${text}`}</div>
       <div className="searchModal">
         <SearchModal
-          isClicked={isClicked}
           indexes={indexes}
           isSearchLoading={isSearchLoading}
         />
