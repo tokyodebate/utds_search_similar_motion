@@ -1,8 +1,8 @@
 import cosSimilarity from "cos-similarity";
 import React, { useState } from "react";
 import "./App.css";
-import rounds from "./data/datastructure_simple.json";
-import vectors from "./data/round.json";
+import rounds from "./data/rounds.json";
+import vectors from "./data/vectors.json";
 import pic from "./utdslogo.png";
 import { quotes } from "./quote";
 
