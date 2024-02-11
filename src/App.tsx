@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./App.css";
 import rounds from "./data/rounds.json";
 import vectors from "./data/vectors.json";
-import pic from "./utdslogo.png";
+import utdsLogoPicture from "./utdslogo.png";
 import { quotes } from "./quote";
 
 export function Slide(props: { text: string }) {
@@ -115,7 +115,7 @@ function App({}: AppProps) {
           href="http://resources.tokyodebate.org/debate-motion/tips/"
           target="_blank"
         >
-          <img src={pic} />
+          <img src={utdsLogoPicture} />
         </a>
       </div>
       <br></br>
