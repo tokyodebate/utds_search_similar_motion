@@ -1,5 +1,5 @@
 import cosSimilarity from "cos-similarity";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import rounds from "./data/rounds.json";
 import vectors from "./data/vectors.json";
@@ -29,7 +29,7 @@ export function SearchModal(props: {
           return <>`round of index: ${index} not found`</>;
         }
         return (
-          <>
+          <div key={index}>
             <div className="set">
               <div className="parent">
                 <div className="child1">
@@ -41,7 +41,7 @@ export function SearchModal(props: {
                 </div>
               </div>
             </div>
-          </>
+          </div>
         );
       })}
     </div>
@@ -65,9 +65,17 @@ function App({}: AppProps) {
     return <div>{loading ? "loading..." : <></>}</div>;
   }
 
+  const model = use.load()
+
   function text2embed() {
-    if (true) {
-      use.load().then((model) => {
+    if (!model) {
+      console.log("model not loaded")
+      return
+    }
+    console.time("loadModel");
+    model
+      .then((model) => {
+        console.time("process")
         const sentences = [text];
         model.embed(sentences).then(async (embeddings) => {
           setLoading(true);
@@ -75,29 +83,35 @@ function App({}: AppProps) {
           let vec = await embeddings.array();
           let similarities = {};
           let similarity = -1;
+          console.time("cosSimilarityCalculation"); // Start measuring cos similarity calculation
           for (let i = 0; i < vectors.length; i++) {
             let vecs = vectors[i];
             similarity = cosSimilarity(vec[0], vecs);
             similarities[i] = similarity;
           }
+          console.timeEnd("cosSimilarityCalculation"); // End measuring cos similarity calculation
           let arr = similarities;
           var keys = [];
           for (let key in arr) keys.push(key);
           function compare(a, b) {
             return arr[b] - arr[a];
           }
-          let result = [];
+          console.time("sorting"); // Start measuring sorting
           keys.sort(compare);
-          // ここのLengthを変える
+          console.timeEnd("sorting"); // End measuring sorting
+          // Adjust length as needed
+          let result = [];
           for (let i = 0; i < paginationRoundLength; i++) {
             result.push(keys[i]);
           }
           setIndexes(result);
-
           setLoading(false);
         });
+        console.timeEnd("process")
+      })
+      .finally(() => {
+        console.timeEnd("loadModel"); // This captures the entire load model process time
       });
-    }
   }
 
   function handleClick() {
