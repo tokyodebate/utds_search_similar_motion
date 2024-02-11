@@ -13,42 +13,39 @@ export function Slide(props: { text: string }) {
   return <div className="slide">{props.text}</div>;
 }
 
-export function SearchModal(props: {isSearchLoading: boolean, indexes: number[], isClicked: boolean}) {
-    return (
-      <div className="sets">
-        {props.indexes.map((index) => {
-					const round = rounds.data.find((v) => v.id == index)
-					if (!round) {
-						return (
-							<>`round of index: ${index} not found`</>
-						)
-					}
-          return (
-            <>
-              <div className="set">
-                <div className="parent">
-                  <div className="child1">
-                    <div className="title">
-                      {round.title +
-                        " / " +
-                        round.round}
-                    </div>
-                    <div className="motion">
-                      {round.motion}
-                    </div>
-                    <Slide
-                      text={
-                        round.slide
-                      }
-                    />
+export function SearchModal(props: {
+  isSearchLoading: boolean;
+  indexes: number[];
+  isClicked: boolean;
+}) {
+  if (props.indexes.length === 0) {
+    return <></>;
+  }
+  return (
+    <div className="sets">
+      {props.indexes.map((index) => {
+        const round = rounds.data.find((v) => v.id == index);
+        if (!round) {
+          return <>`round of index: ${index} not found`</>;
+        }
+        return (
+          <>
+            <div className="set">
+              <div className="parent">
+                <div className="child1">
+                  <div className="title">
+                    {round.title + " / " + round.round}
                   </div>
+                  <div className="motion">{round.motion}</div>
+                  <Slide text={round.slide} />
                 </div>
               </div>
-            </>
-          );
-        })}
-      </div>
-    );
+            </div>
+          </>
+        );
+      })}
+    </div>
+  );
 }
 
 interface AppProps {}
@@ -147,14 +144,13 @@ function App({}: AppProps) {
       </div>
 
       <div className="searchName">{`${text}`}</div>
-			<div className="searchModal">
-				<SearchModal
-					isClicked={isClicked}
-					indexes={indexes}
-					isSearchLoading={isSearchLoading}
-				/>
-			</div>
-
+      <div className="searchModal">
+        <SearchModal
+          isClicked={isClicked}
+          indexes={indexes}
+          isSearchLoading={isSearchLoading}
+        />
+      </div>
 
       <br></br>
       <div className="length-explain">
@@ -172,7 +168,6 @@ function App({}: AppProps) {
       <br></br>
       <br></br>
       <br></br>
-
     </div>
   );
 }
