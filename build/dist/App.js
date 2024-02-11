@@ -15,7 +15,7 @@ export function Slide(props) {
 }
 export function SearchModal(props) {
   if (props.indexes.length === 0) {
-    return /* @__PURE__ */ React.createElement(React.Fragment, null, "loading...");
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, "initial loading... ", /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null), "It takes about 5 seconds to load for the first time.");
   }
   return /* @__PURE__ */ React.createElement("div", {
     className: "sets"
@@ -84,10 +84,12 @@ function App({}) {
   function handleClick() {
     setSearchingText(text);
     setIsSearchLoading(true);
-    text2embed(text).finally(() => setIsSearchLoading(false));
+    setTimeout(() => {
+      text2embed(text).finally(() => setIsSearchLoading(false));
+    }, 300);
   }
   if (loading) {
-    return /* @__PURE__ */ React.createElement("div", null, loading ? "loading..." : /* @__PURE__ */ React.createElement(React.Fragment, null));
+    return /* @__PURE__ */ React.createElement("div", null, loading ? "initial loading..." : /* @__PURE__ */ React.createElement(React.Fragment, null));
   }
   return /* @__PURE__ */ React.createElement("div", {
     className: "App"
@@ -112,11 +114,12 @@ function App({}) {
         handleClick();
       }
     },
+    disabled: isSearchLoading,
     value: text
   }), /* @__PURE__ */ React.createElement("button", {
     className: "search",
     style: {backgroundColor: isSearchLoading ? "gray" : void 0},
-    onClick: (e) => {
+    onClick: () => {
       handleClick();
     },
     disabled: isSearchLoading

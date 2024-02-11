@@ -18,7 +18,7 @@ export function SearchModal(props: {
   indexes: number[];
 }) {
   if (props.indexes.length === 0) {
-    return <>loading...</>;
+    return <>initial loading... <br></br><br></br>It takes about 5 seconds to load for the first time.</>;
   }
   return (
     <div className="sets">
@@ -97,11 +97,14 @@ function App({}: AppProps) {
   function handleClick() {
     setSearchingText(text);
     setIsSearchLoading(true);
-    text2embed(text).finally(() => setIsSearchLoading(false));
+    // 500ms後に検索を実行
+    setTimeout(() => {
+      text2embed(text).finally(() => setIsSearchLoading(false));
+    }, 300);
   }
   
   if (loading) {
-    return <div>{loading ? "loading..." : <></>}</div>;
+    return <div>{loading ? "initial loading..." : <></>}</div>;
   }
 
   return (
@@ -130,12 +133,13 @@ function App({}: AppProps) {
               handleClick();
             }
           }}
+          disabled={isSearchLoading}
           value={text}
         />
         <button
           className="search"
           style={{ backgroundColor: isSearchLoading ? "gray" : undefined }}
-          onClick={(e) => {
+          onClick={() => {
             handleClick();
           }}
           disabled={isSearchLoading}
