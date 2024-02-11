@@ -47,7 +47,6 @@ function App({}) {
   const [text, setText] = useState(initialText);
   const [indexes, setIndexes] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
-  const [isWaiting, setIsWaiting] = useState(false);
   const [paginationRoundLength, setPaginationRoundLength] = useState(15);
   const [loading, setLoading] = useState(false);
   const [isSearchLoading, setIsSearchLoading] = useState(false);
@@ -55,13 +54,7 @@ function App({}) {
     return /* @__PURE__ */ React.createElement("div", null, loading ? "loading..." : /* @__PURE__ */ React.createElement(React.Fragment, null));
   }
   function text2embed() {
-    if (!model) {
-      console.log("model not loaded");
-      return;
-    }
-    console.time("loadModel");
-    model.then((model2) => {
-      console.time("process");
+    return model.then((model2) => {
       const sentences = [text];
       model2.embed(sentences).then(async (embeddings) => {
         setLoading(true);
@@ -69,13 +62,11 @@ function App({}) {
         let vec = await embeddings.array();
         let similarities = {};
         let similarity = -1;
-        console.time("cosSimilarityCalculation");
         for (let i = 0; i < vectors.length; i++) {
           let vecs = vectors[i];
           similarity = cosSimilarity(vec[0], vecs);
           similarities[i] = similarity;
         }
-        console.timeEnd("cosSimilarityCalculation");
         let arr = similarities;
         var keys = [];
         for (let key in arr)
@@ -83,9 +74,7 @@ function App({}) {
         function compare(a, b) {
           return arr[b] - arr[a];
         }
-        console.time("sorting");
         keys.sort(compare);
-        console.timeEnd("sorting");
         let result = [];
         for (let i = 0; i < paginationRoundLength; i++) {
           result.push(keys[i]);
@@ -93,16 +82,11 @@ function App({}) {
         setIndexes(result);
         setLoading(false);
       });
-      console.timeEnd("process");
-    }).finally(() => {
-      console.timeEnd("loadModel");
     });
   }
   function handleClick() {
-    setIsWaiting(true);
-    setIsClicked(!isClicked);
-    text2embed();
-    setIsWaiting(false);
+    setIsSearchLoading(true);
+    text2embed().finally(() => setIsSearchLoading(false));
   }
   return /* @__PURE__ */ React.createElement("div", {
     className: "App"
@@ -122,21 +106,24 @@ function App({}) {
     onChange: (e) => {
       setText(e.target.value);
     },
+    onKeyDown: (e) => {
+      if (e.key === "Enter") {
+        handleClick();
+      }
+    },
     value: text
   }), /* @__PURE__ */ React.createElement("button", {
     className: "search",
+    style: {backgroundColor: isSearchLoading ? "gray" : void 0},
     onClick: (e) => {
       handleClick();
-      e.target.style.backgroundColor = "gray";
-      setIsSearchLoading(true);
     },
-    disabled: isWaiting
+    disabled: isSearchLoading
   }, "search")), /* @__PURE__ */ React.createElement("div", {
     className: "searchName"
   }, `${text}`), /* @__PURE__ */ React.createElement("div", {
     className: "searchModal"
   }, /* @__PURE__ */ React.createElement(SearchModal, {
-    isClicked,
     indexes,
     isSearchLoading
   })), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("div", {
