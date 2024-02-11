@@ -7,92 +7,80 @@ import allVectors from "./data/round.json";
 import pic from "./utdslogo.png";
 import { quotes } from "./quote";
 
-
-export function Slide(props: {text: string}) {
+export function Slide(props: { text: string }) {
   if (!props.text) {
-		return <></>
-	}
-	return <div className="slide">{props.text}</div>;
+    return <></>;
+  }
+  return <div className="slide">{props.text}</div>;
 }
 
-export function NationalModal(props) {
+export function NationalModal(props: { index: number }) {
   let json_dict = datastructure["national"][props.index];
-  if (true) {
-    return (
-      <div className="sets" key={props.index}>
-        <div className="titles">{json_dict.title}</div>
-        {Object.values(json_dict.rounds).map((e) => {
-          return (
-            <>
-              <div className="set">
-                <div className="parant">
-                  <div className="child1">
-                    <div className="title2">{e.round}</div>
-                    <div className="motion2">{e.motion}</div>
-                    <Slide text={e.slide} />
-                  </div>
+  return (
+    <div className="sets" key={props.index}>
+      <div className="titles">{json_dict.title}</div>
+      {Object.values(json_dict.rounds).map((round) => {
+        return (
+          <>
+            <div className="set">
+              <div className="parent">
+                <div className="child1">
+                  <div className="title2">{round.round}</div>
+                  <div className="motion2">{round.motion}</div>
+                  <Slide text={round.slide} />
                 </div>
               </div>
-            </>
-          );
-        })}
+            </div>
+          </>
+        );
+      })}
 
-        <div className="index-close">
-          <div className="index">
-            {props.index}/{datastructure["national"].length}
-          </div>
-          {/* <button className="close" onClick = {() => {}}>↑</button> */}
+      <div className="index-close">
+        <div className="index">
+          {props.index}/{datastructure["national"].length}
         </div>
       </div>
-    );
-  } else {
-    return <></>;
-  }
+    </div>
+  );
 }
-export function InternationalModal(props) {
+export function InternationalModal(props: { index: number }) {
   let json_dict = datastructure["international"][props.index];
-  if (true) {
-    return (
-      <div className="sets" key={props.index}>
-        <div className="titles">{json_dict.title}</div>
-        {Object.values(json_dict.rounds).map((e) => {
-          return (
-            <>
-              <div className="set">
-                <div className="parant">
-                  <div className="child1">
-                    <div className="title2">{e.round}</div>
-                    <div className="motion2">{e.motion}</div>
-                    <Slide text={e.slide} />
-                  </div>
+  return (
+    <div className="sets" key={props.index}>
+      <div className="titles">{json_dict.title}</div>
+      {Object.values(json_dict.rounds).map((round) => {
+        return (
+          <>
+            <div className="set">
+              <div className="parent">
+                <div className="child1">
+                  <div className="title2">{round.round}</div>
+                  <div className="motion2">{round.motion}</div>
+                  <Slide text={round.slide} />
                 </div>
               </div>
-            </>
-          );
-        })}
-        <div className="index-close">
-          <div className="index">
-            {props.index}/{datastructure["international"].length}
-          </div>
-          {/* <button className="close">↑</button> */}
+            </div>
+          </>
+        );
+      })}
+      <div className="index-close">
+        <div className="index">
+          {props.index}/{datastructure["international"].length}
         </div>
       </div>
-    );
-  } else {
-    return <></>;
-  }
+    </div>
+  );
 }
 
-export function SearchModal(props) {
-  // if (isClicked){
-  if (props.started) {
+export function SearchModal(props: {isSearchLoading: boolean, ranks: number[], isClicked: boolean}) {
+  if (props.isSearchLoading) {
     return (
       <div className="sets">
         {props.ranks.map((e) => {
           return (
             <>
               <div className="set">
-                <div className="parant">
+                <div className="parent">
                   <div className="child1">
                     <div className="title">
                       {datastructureSimple.data.find((v) => v.id == e).title +
@@ -122,7 +110,7 @@ export function SearchModal(props) {
 
 interface AppProps {}
 function App({}: AppProps) {
-	const initialText = quotes[Math.floor(Math.random() * quotes.length)];
+  const initialText = quotes[Math.floor(Math.random() * quotes.length)];
 
   const [text, setText] = useState<string>(initialText);
   const [ranks, setRanks] = useState<Array<number>>([]);
@@ -137,7 +125,7 @@ function App({}: AppProps) {
   const [isSearch, setIsSearch] = useState(false);
 
   const [loading, setLoading] = useState(false);
-  const [started, setStarted] = useState(false);
+  const [isSearchLoading, setIsSearchLoading] = useState(false);
 
   if (loading) {
     return <div>{loading ? "loading..." : <></>}</div>;
@@ -192,16 +180,12 @@ function App({}: AppProps) {
         <a
           className="picParent"
           href="http://resources.tokyodebate.org/debate-motion/tips/"
-          onclick="document.location='http://resources.tokyodebate.org/debate-motion/tips/';return false;"
           target="_blank"
         >
           <img src={pic} />
         </a>
       </div>
-
-      {/* <div className="picParent"><img src={pic} alt="picture"/></div> */}
       <br></br>
-      {/* <a href="http://resources.tokyodebate.org/debate-motion/tips/">utds</a> */}
       <br></br>
       <br></br>
       <div className="parent-input-button-">
@@ -218,7 +202,7 @@ function App({}: AppProps) {
           onClick={(e) => {
             handleClick();
             e.target.style.backgroundColor = "gray";
-            setStarted(true);
+            setIsSearchLoading(true);
           }}
           disabled={isWaiting}
         >
@@ -226,15 +210,15 @@ function App({}: AppProps) {
         </button>
       </div>
 
-      {/* <div className="seperator"></div> */}
-
       <div className="searchName">{`${text}`}</div>
-      <SearchModal
-        className="searchModal"
-        isClicked={isClicked}
-        ranks={ranks}
-        started={started}
-      />
+			<div className="searchModal">
+				<SearchModal
+					isClicked={isClicked}
+					ranks={ranks}
+					isSearchLoading={isSearchLoading}
+				/>
+			</div>
+
 
       <br></br>
       <div className="length-explain">
