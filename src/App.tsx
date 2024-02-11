@@ -1,5 +1,5 @@
 import cosSimilarity from "cos-similarity";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import rounds from "./data/rounds.json";
 import vectors from "./data/vectors.json";
@@ -48,6 +48,8 @@ export function SearchModal(props: {
   );
 }
 
+const model = use.load()
+
 interface AppProps {}
 function App({}: AppProps) {
   const initialText = quotes[Math.floor(Math.random() * quotes.length)];
@@ -65,7 +67,6 @@ function App({}: AppProps) {
     return <div>{loading ? "loading..." : <></>}</div>;
   }
 
-  const model = use.load()
 
   function text2embed() {
     if (!model) {
