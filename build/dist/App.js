@@ -1,5 +1,5 @@
 import cosSimilarity from "../_snowpack/pkg/cos-similarity.js";
-import React, {useState} from "../_snowpack/pkg/react.js";
+import React, {useCallback, useEffect, useState} from "../_snowpack/pkg/react.js";
 import "./App.css.proxy.js";
 import rounds from "./data/rounds.json.proxy.js";
 import vectors from "./data/vectors.json.proxy.js";
@@ -15,7 +15,7 @@ export function Slide(props) {
 }
 export function SearchModal(props) {
   if (props.indexes.length === 0) {
-    return /* @__PURE__ */ React.createElement(React.Fragment, null);
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, "loading...");
   }
   return /* @__PURE__ */ React.createElement("div", {
     className: "sets"
@@ -44,18 +44,15 @@ export function SearchModal(props) {
 const model = use.load();
 function App({}) {
   const initialText = quotes[Math.floor(Math.random() * quotes.length)];
+  const [searchingText, setSearchingText] = useState(initialText);
   const [text, setText] = useState(initialText);
   const [indexes, setIndexes] = useState([]);
-  const [isClicked, setIsClicked] = useState(false);
   const [paginationRoundLength, setPaginationRoundLength] = useState(15);
   const [loading, setLoading] = useState(false);
   const [isSearchLoading, setIsSearchLoading] = useState(false);
-  if (loading) {
-    return /* @__PURE__ */ React.createElement("div", null, loading ? "loading..." : /* @__PURE__ */ React.createElement(React.Fragment, null));
-  }
-  function text2embed() {
+  const text2embed = useCallback((text2) => {
     return model.then((model2) => {
-      const sentences = [text];
+      const sentences = [text2];
       model2.embed(sentences).then(async (embeddings) => {
         setLoading(true);
         embeddings.print(true);
@@ -71,10 +68,7 @@ function App({}) {
         var keys = [];
         for (let key in arr)
           keys.push(key);
-        function compare(a, b) {
-          return arr[b] - arr[a];
-        }
-        keys.sort(compare);
+        keys.sort((a, b) => arr[b] - arr[a]);
         let result = [];
         for (let i = 0; i < paginationRoundLength; i++) {
           result.push(keys[i]);
@@ -83,10 +77,17 @@ function App({}) {
         setLoading(false);
       });
     });
-  }
+  }, [model, vectors, paginationRoundLength]);
+  useEffect(() => {
+    handleClick();
+  }, []);
   function handleClick() {
+    setSearchingText(text);
     setIsSearchLoading(true);
-    text2embed().finally(() => setIsSearchLoading(false));
+    text2embed(text).finally(() => setIsSearchLoading(false));
+  }
+  if (loading) {
+    return /* @__PURE__ */ React.createElement("div", null, loading ? "loading..." : /* @__PURE__ */ React.createElement(React.Fragment, null));
   }
   return /* @__PURE__ */ React.createElement("div", {
     className: "App"
@@ -121,7 +122,7 @@ function App({}) {
     disabled: isSearchLoading
   }, "search")), /* @__PURE__ */ React.createElement("div", {
     className: "searchName"
-  }, `${text}`), /* @__PURE__ */ React.createElement("div", {
+  }, text), /* @__PURE__ */ React.createElement("div", {
     className: "searchModal"
   }, /* @__PURE__ */ React.createElement(SearchModal, {
     indexes,

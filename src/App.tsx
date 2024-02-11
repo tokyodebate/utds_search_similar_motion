@@ -18,7 +18,7 @@ export function SearchModal(props: {
   indexes: number[];
 }) {
   if (props.indexes.length === 0) {
-    return <></>;
+    return <>loading...</>;
   }
   return (
     <div className="sets">
@@ -53,56 +53,55 @@ interface AppProps {}
 function App({}: AppProps) {
   const initialText = quotes[Math.floor(Math.random() * quotes.length)];
 
+  const [searchingText, setSearchingText] = useState<string>(initialText);
   const [text, setText] = useState<string>(initialText);
   const [indexes, setIndexes] = useState<Array<number>>([]);
-  const [isClicked, setIsClicked] = useState(false);
-  // const [isWaiting, setIsWaiting] = useState(false);
   const [paginationRoundLength, setPaginationRoundLength] = useState(15);
 
   const [loading, setLoading] = useState(false);
   const [isSearchLoading, setIsSearchLoading] = useState(false);
 
+  const text2embed = useCallback((text) => {
+    return model.then((model) => {
+      const sentences = [text];
+      model.embed(sentences).then(async (embeddings) => {
+        setLoading(true);
+        embeddings.print(true);
+        let vec = await embeddings.array();
+        let similarities = {};
+        let similarity = -1;
+        for (let i = 0; i < vectors.length; i++) {
+          let vecs = vectors[i];
+          similarity = cosSimilarity(vec[0], vecs);
+          similarities[i] = similarity;
+        }
+        let arr = similarities;
+        var keys = [];
+        for (let key in arr) keys.push(key);
+        keys.sort((a, b) => arr[b] - arr[a]);
+        let result = [];
+        for (let i = 0; i < paginationRoundLength; i++) {
+          result.push(keys[i]);
+        }
+        setIndexes(result);
+        setLoading(false);
+      });
+    });
+  }, [model, vectors, paginationRoundLength]); // 依存関係を追加
+
+  useEffect(() => {
+    handleClick()
+  }
+  , []);
+  
+  function handleClick() {
+    setSearchingText(text);
+    setIsSearchLoading(true);
+    text2embed(text).finally(() => setIsSearchLoading(false));
+  }
+  
   if (loading) {
     return <div>{loading ? "loading..." : <></>}</div>;
-  }
-
-
-  function text2embed() {
-    return model
-      .then((model) => {
-        const sentences = [text];
-        model.embed(sentences).then(async (embeddings) => {
-          setLoading(true);
-          embeddings.print(true);
-          let vec = await embeddings.array();
-          let similarities = {};
-          let similarity = -1;
-          for (let i = 0; i < vectors.length; i++) {
-            let vecs = vectors[i];
-            similarity = cosSimilarity(vec[0], vecs);
-            similarities[i] = similarity;
-          }
-          let arr = similarities;
-          var keys = [];
-          for (let key in arr) keys.push(key);
-          function compare(a, b) {
-            return arr[b] - arr[a];
-          }
-          keys.sort(compare);
-          // Adjust length as needed
-          let result = [];
-          for (let i = 0; i < paginationRoundLength; i++) {
-            result.push(keys[i]);
-          }
-          setIndexes(result);
-          setLoading(false);
-        });
-      })
-  }
-
-  function handleClick() {
-    setIsSearchLoading(true);
-    text2embed().finally(() => setIsSearchLoading(false));
   }
 
   return (
@@ -145,7 +144,7 @@ function App({}: AppProps) {
         </button>
       </div>
 
-      <div className="searchName">{`${text}`}</div>
+      <div className="searchName">{text}</div>
       <div className="searchModal">
         <SearchModal
           indexes={indexes}
